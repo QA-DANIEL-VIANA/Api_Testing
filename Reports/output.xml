@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1 (Python 3.11.4 on win32)" generated="20230808 22:18:13.708" rpa="false" schemaversion="4">
+<suite id="s1" name="Fakeapi" source="c:\CursoUdemy\RobotFramework\FakeApi\testing\fakeapi.robot">
+<test id="s1-t1" name="CT01 - Cadastro de Usuário na APIFAKE" line="6">
+<kw name="Iniciar uma seção" library="Fakeapi">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>FAKEAPI</arg>
+<arg>${url}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230808 22:18:14.687" level="INFO">Creating Session using : alias=FAKEAPI, url=https://fakerestapi.azurewebsites.net/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20230808 22:18:14.687" endtime="20230808 22:18:14.693"/>
+</kw>
+<status status="PASS" starttime="20230808 22:18:14.686" endtime="20230808 22:18:14.693"/>
+</kw>
+<kw name="Dado em que cadastro o usuário na API" library="Fakeapi">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>id=0</arg>
+<arg>userName=MARCOS</arg>
+<arg>password=SILVA</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230808 22:18:14.697" level="INFO">${body} = {'id': '0', 'userName': 'MARCOS', 'password': 'SILVA'}</msg>
+<status status="PASS" starttime="20230808 22:18:14.696" endtime="20230808 22:18:14.697"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${body}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230808 22:18:14.697" level="INFO">{'id': '0', 'userName': 'MARCOS', 'password': 'SILVA'}</msg>
+<status status="PASS" starttime="20230808 22:18:14.697" endtime="20230808 22:18:14.697"/>
+</kw>
+<kw name="dado em que é criada a seção na API" library="Fakeapi">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>accept=*/*</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230808 22:18:14.699" level="INFO">${headers} = {'accept': '*/*', 'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20230808 22:18:14.698" endtime="20230808 22:18:14.699"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=FAKEAPI</arg>
+<arg>url=https://fakerestapi.azurewebsites.net/api/v1</arg>
+<arg>headers= ${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230808 22:18:14.701" level="INFO">Creating Session using : alias=FAKEAPI, url=https://fakerestapi.azurewebsites.net/api/v1, headers={'accept': '*/*', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230808 22:18:14.699" endtime="20230808 22:18:14.702"/>
+</kw>
+<status status="PASS" starttime="20230808 22:18:14.698" endtime="20230808 22:18:14.702"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${resposta}</var>
+<arg>alias=FAKEAPI</arg>
+<arg>url=/Users</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230808 22:18:16.080" level="INFO">POST Request : url=https://fakerestapi.azurewebsites.net/api/v1/Users 
+ path_url=/api/v1/Users 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '54'} 
+ body=b'{"id": "0", "userName": "MARCOS", "password": "SILVA"}' 
+ </msg>
+<msg timestamp="20230808 22:18:16.082" level="INFO">POST Response : url=https://fakerestapi.azurewebsites.net/api/v1/Users 
+ status=200, reason=OK 
+ headers={'Content-Type': 'application/json; charset=utf-8; v=1.0', 'Date': 'Wed, 09 Aug 2023 01:18:15 GMT', 'Server': 'Kestrel', 'Transfer-Encoding': 'chunked', 'api-supported-versions': '1.0'} 
+ body={"id":0,"userName":"MARCOS","password":"SILVA"} 
+ </msg>
+<msg timestamp="20230808 22:18:16.082" level="INFO">C:\Users\Mercosul\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1056: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakerestapi.azurewebsites.net'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230808 22:18:16.087" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230808 22:18:14.702" endtime="20230808 22:18:16.087"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${resposta.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230808 22:18:16.089" level="INFO">{'id': 0, 'userName': 'MARCOS', 'password': 'SILVA'}</msg>
+<status status="PASS" starttime="20230808 22:18:16.088" endtime="20230808 22:18:16.089"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${RESPOSTA}</arg>
+<arg>${resposta.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20230808 22:18:16.090" level="INFO">${RESPOSTA} = {'id': 0, 'userName': 'MARCOS', 'password': 'SILVA'}</msg>
+<status status="PASS" starttime="20230808 22:18:16.089" endtime="20230808 22:18:16.090"/>
+</kw>
+<status status="PASS" starttime="20230808 22:18:14.695" endtime="20230808 22:18:16.091"/>
+</kw>
+<kw name="dado em que é criada a seção na API" library="Fakeapi">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>accept=*/*</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230808 22:18:16.092" level="INFO">${headers} = {'accept': '*/*', 'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20230808 22:18:16.091" endtime="20230808 22:18:16.092"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=FAKEAPI</arg>
+<arg>url=https://fakerestapi.azurewebsites.net/api/v1</arg>
+<arg>headers= ${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230808 22:18:16.093" level="INFO">Creating Session using : alias=FAKEAPI, url=https://fakerestapi.azurewebsites.net/api/v1, headers={'accept': '*/*', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230808 22:18:16.092" endtime="20230808 22:18:16.094"/>
+</kw>
+<status status="PASS" starttime="20230808 22:18:16.091" endtime="20230808 22:18:16.094"/>
+</kw>
+<kw name="Dado em que realiza conferencia do cadastro" library="Fakeapi">
+<kw name="Log" library="BuiltIn">
+<arg>${RESPOSTA}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230808 22:18:16.095" level="INFO">{'id': 0, 'userName': 'MARCOS', 'password': 'SILVA'}</msg>
+<status status="PASS" starttime="20230808 22:18:16.095" endtime="20230808 22:18:16.095"/>
+</kw>
+<kw name="Dictionary Should Contain Item" library="Collections">
+<arg>${RESPOSTA}</arg>
+<arg>userName</arg>
+<arg>MARCOS</arg>
+<doc>An item of ``key`` / ``value`` must be found in a ``dictionary``.</doc>
+<status status="PASS" starttime="20230808 22:18:16.095" endtime="20230808 22:18:16.096"/>
+</kw>
+<kw name="Dictionary Should Not Contain Key" library="Collections">
+<arg>${RESPOSTA}</arg>
+<arg>_id</arg>
+<doc>Fails if ``key`` is found from ``dictionary``.</doc>
+<status status="PASS" starttime="20230808 22:18:16.096" endtime="20230808 22:18:16.096"/>
+</kw>
+<status status="PASS" starttime="20230808 22:18:16.094" endtime="20230808 22:18:16.097"/>
+</kw>
+<kw name="Consultar informações do novo usuario" library="Fakeapi">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${retorno da consulta}</var>
+<arg>alias=FAKEAPI</arg>
+<arg>url=/Users</arg>
+<arg>params=_id</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230808 22:18:17.063" level="INFO">GET Request : url=https://fakerestapi.azurewebsites.net/api/v1/Users?_id 
+ path_url=/api/v1/Users?_id 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20230808 22:18:17.063" level="INFO">GET Response : url=https://fakerestapi.azurewebsites.net/api/v1/Users?_id 
+ status=200, reason=OK 
+ headers={'Content-Type': 'application/json; charset=utf-8; v=1.0', 'Date': 'Wed, 09 Aug 2023 01:18:16 GMT', 'Server': 'Kestrel', 'Transfer-Encoding': 'chunked', 'api-supported-versions': '1.0'} 
+ body=[{"id":1,"userName":"User 1","password":"Password1"},{"id":2,"userName":"User 2","password":"Password2"},{"id":3,"userName":"User 3","password":"Password3"},{"id":4,"userName":"User 4","password":"Password4"},{"id":5,"userName":"User 5","password":"Password5"},{"id":6,"userName":"User 6","password":"Password6"},{"id":7,"userName":"User 7","password":"Password7"},{"id":8,"userName":"User 8","password":"Password8"},{"id":9,"userName":"User 9","password":"Password9"},{"id":10,"userName":"User 10","password":"Password10"}] 
+ </msg>
+<msg timestamp="20230808 22:18:17.064" level="INFO">C:\Users\Mercosul\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1056: InsecureRequestWarning: Unverified HTTPS request is being made to host 'fakerestapi.azurewebsites.net'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230808 22:18:17.065" level="INFO">${retorno da consulta} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230808 22:18:16.099" endtime="20230808 22:18:17.065"/>
+</kw>
+<status status="PASS" starttime="20230808 22:18:16.098" endtime="20230808 22:18:17.066"/>
+</kw>
+<tag>cad_usuário</tag>
+<status status="PASS" starttime="20230808 22:18:14.685" endtime="20230808 22:18:17.066"/>
+</test>
+<doc>Testes na APIFAKE</doc>
+<status status="PASS" starttime="20230808 22:18:13.731" endtime="20230808 22:18:17.068"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">cad_usuário</stat>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Fakeapi">Fakeapi</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
