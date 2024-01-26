@@ -4,13 +4,11 @@ Library     RequestsLibrary
 Library     Collections
 Library     String
 
-
 *** Variables ***
 ${url}      https://fakerestapi.azurewebsites.net/
 
-
 *** Keywords ***
-Iniciar uma seção
+Iniciar uma sessão
     Create Session    FAKEAPI    ${url}    verify=True
 
 Dado em que cadastro o usuário na API
@@ -18,23 +16,17 @@ Dado em que cadastro o usuário na API
     ...    id=0
     ...    userName=MARCOS
     ...    password=SILVA
-    log    ${body}
-
-    dado em que é criada a seção na API
+    Log    ${body}
 
     ${resposta}    POST On Session    alias=FAKEAPI    url=/Users    json=${body}
-
     Log    ${resposta.json()}
     Set Test Variable    ${RESPOSTA}    ${resposta.json()}
 
-dado em que é criada a seção na API
-    ${headers}    Create Dictionary    accept=*/*    Content-Type=application/json
-    Create Session    alias=FAKEAPI    url=https://fakerestapi.azurewebsites.net/api/v1    headers= ${headers}
-
-Dado em que realiza conferencia do cadastro
+Dado em que realiza conferência do cadastro
     Log    ${RESPOSTA}
     Dictionary Should Contain Item    ${RESPOSTA}    userName    MARCOS
     Dictionary Should Not Contain Key    ${RESPOSTA}    _id
 
-Consultar informações do novo usuario
+Consultar informações do novo usuário
     ${retorno da consulta}    GET On Session    alias=FAKEAPI    url=/Users    params=_id
+
